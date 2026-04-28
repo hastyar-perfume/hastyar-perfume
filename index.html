@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hastyar | Fragrances of Kurdistan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C9A962;
+            --gold-light: #E8D5A3;
+            --teal: #1A4A52;
+            --teal-dark: #0D2E33;
+            --teal-light: #2A6A72;
+            --black: #0A0A0A;
+            --charcoal: #1A1A1A;
+            --cream: #F5F0E8;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--black);
+            color: var(--cream);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 25px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(10,10,10,0.98);
+            padding: 15px 60px;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 8px;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--black) 0%, var(--teal-dark) 50%, var(--black) 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(42,106,114,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(201,169,98,0.08) 0%, transparent 40%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 30px;
+        }
+
+        .hero-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 72px;
+            font-weight: 300;
+            letter-spacing: 20px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease forwards;
+        }
+
+        .hero-line {
+            width: 60px;
+            height: 1px;
+            background: var(--gold);
+            margin: 0 auto 40px;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease 0.3s forwards;
+        }
+
+        .hero-text {
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 2.2;
+            color: rgba(245,240,232,0.8);
+            letter-spacing: 1px;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease 0.6s forwards;
+        }
+
+        .hero-text em {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            animation: fadeIn 1s ease 1.5s forwards;
+        }
+
+        .scroll-indicator span {
+            font-size: 9px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scrollPulse 2s ease infinite;
+        }
+
+        /* Brand Story Section */
+        .brand-story {
+            padding: 140px 60px;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-label {
+            font-size: 10px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42px;
+            font-weight: 300;
+            color: var(--cream);
+            margin-bottom: 40px;
+            line-height: 1.3;
+        }
+
+        .section-text {
+            font-size: 15px;
+            font-weight: 300;
+            line-height: 2.2;
+            color: rgba(245,240,232,0.75);
+            margin-bottom: 25px;
+        }
+
+        .section-text strong {
+            color: var(--cream);
+            font-weight: 500;
+        }
+
+        .divider {
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            margin: 60px auto;
+            opacity: 0.5;
+        }
+
+        /* Product Section */
+        .product-section {
+            padding: 100px 60px;
+            background: linear-gradient(to bottom, var(--black), var(--charcoal), var(--black));
+        }
+
+        .product-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .product-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+
+        .product-image:hover img {
+            transform: scale(1.03);
+        }
+
+        .product-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 1px solid rgba(201,169,98,0.2);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        .product-details {
+            padding: 20px 0;
+        }
+
+        .product-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 52px;
+            font-weight: 300;
+            letter-spacing: 8px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .product-subtitle {
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(245,240,232,0.5);
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .product-description {
+            font-size: 15px;
+            font-weight: 300;
+            line-height: 2;
+            color: rgba(245,240,232,0.8);
+            margin-bottom: 30px;
+        }
+
+        .product-description em {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .product-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(201,169,98,0.2);
+        }
+
+        .meta-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .meta-label {
+            font-size: 10px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        .meta-value {
+            font-size: 14px;
+            color: var(--cream);
+            font-weight: 300;
+        }
+
+        .price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            color: var(--gold);
+            font-weight: 400;
+        }
+
+        /* Pyramid Section */
+        .pyramid-section {
+            padding: 100px 60px;
+            text-align: center;
+            background: var(--black);
+        }
+
+        .pyramid-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .pyramid-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid rgba(201,169,98,0.15);
+        }
+
+        .pyramid-caption {
+            margin-top: 30px;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(245,240,232,0.5);
+        }
+
+        /* Notes Detail Section */
+        .notes-detail {
+            padding: 80px 60px;
+            background: linear-gradient(to bottom, var(--black), var(--teal-dark));
+        }
+
+        .notes-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+        }
+
+        .note-column {
+            text-align: center;
+            padding: 40px 30px;
+            border: 1px solid rgba(201,169,98,0.1);
+            border-radius: 4px;
+            background: rgba(26,26,26,0.5);
+            transition: all 0.4s ease;
+        }
+
+        .note-column:hover {
+            border-color: rgba(201,169,98,0.3);
+            transform: translateY(-5px);
+        }
+
+        .note-icon {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .note-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 300;
+            color: var(--gold);
+            margin-bottom: 20px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .note-list {
+            list-style: none;
+            font-size: 14px;
+            font-weight: 300;
+            color: rgba(245,240,232,0.8);
+            line-height: 2.2;
+        }
+
+        /* Purchase Section */
+        .purchase-section {
+            padding: 120px 60px;
+            text-align: center;
+            background: var(--charcoal);
+            position: relative;
+        }
+
+        .purchase-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            opacity: 0.3;
+        }
+
+        .purchase-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .purchase-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 36px;
+            font-weight: 300;
+            color: var(--cream);
+            margin-bottom: 50px;
+            letter-spacing: 4px;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 25px;
+            border: 1px solid rgba(201,169,98,0.15);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--cream);
+        }
+
+        .contact-item:hover {
+            border-color: var(--gold);
+            background: rgba(201,169,98,0.05);
+        }
+
+        .contact-icon {
+            font-size: 20px;
+            color: var(--gold);
+        }
+
+        .contact-info {
+            text-align: left;
+        }
+
+        .contact-label {
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .contact-value {
+            font-size: 15px;
+            font-weight: 300;
+            color: var(--cream);
+        }
+
+        .origin-badge {
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(245,240,232,0.4);
+        }
+
+        .origin-badge strong {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px;
+            text-align: center;
+            background: var(--black);
+            border-top: 1px solid rgba(201,169,98,0.1);
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-weight: 300;
+            letter-spacing: 6px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .footer-text {
+            font-size: 11px;
+            color: rgba(245,240,232,0.3);
+            letter-spacing: 2px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; transform: scaleY(1); }
+            50% { opacity: 1; transform: scaleY(1.2); }
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .product-container {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .notes-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-brand {
+                font-size: 42px;
+                letter-spacing: 10px;
+            }
+
+            nav {
+                padding: 20px 30px;
+            }
+
+            .brand-story, .product-section, .pyramid-section, .notes-detail, .purchase-section {
+                padding: 80px 30px;
+            }
+
+            .product-name {
+                font-size: 36px;
+            }
+        }
+
+        .nav-logo-img {
+            height: 50px;
+            width: auto;
+            border-radius: 50%;
+            vertical-align: middle;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .hero-logo-wrapper {
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease forwards;
+        }
+
+        .hero-logo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(201,169,98,0.3);
+            box-shadow: 0 0 60px rgba(201,169,98,0.15);
+        }
+
+        @media (max-width: 900px) {
+            .hero-logo {
+                width: 150px;
+                height: 150px;
+            }
+            .nav-logo-img {
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="logo"><img src="logo.jpg" alt="Hastyar" class="nav-logo-img"></div>
+        <ul class="nav-links">
+            <li><a href="#story">Story</a></li>
+            <li><a href="#bottle">Fragrance</a></li>
+            <li><a href="#notes">Notes</a></li>
+            <li><a href="#purchase">Purchase</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-logo-wrapper">
+    <img src="logo.jpg" alt="Hastyar Perfume" class="hero-logo">
+</div>
+            <div class="hero-line"></div>
+            <p class="hero-text">
+                Born from the spirit of Kurdistan,<br>
+                Hastyar is a fragrance house built on identity, presence, and refined strength.<br><br>
+                Inspired by the crisp mountain air and the silent power of nature,<br>
+                each creation is designed to leave a lasting impression — <em>clean, bold, and unforgettable.</em><br><br>
+                This is not mass perfume.<br>
+                <strong>This is character in a bottle.</strong>
+            </p>
+        </div>
+        <div class="scroll-indicator">
+            <span>Discover</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Brand Story -->
+    <section class="brand-story" id="story">
+        <div class="reveal">
+            <p class="section-label">The First Signature</p>
+            <h2 class="section-title">Bastallak</h2>
+            <p class="section-text">
+                A modern expression of freshness and depth, crafted for those who stand out without speaking.
+            </p>
+            <p class="section-text" style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 20px; color: var(--gold-light);">
+                Cold. Clean. Powerful.
+            </p>
+        </div>
+    </section>
+
+    <!-- Product Section - BOTTLE PHOTO GOES HERE -->
+    <section class="product-section" id="fragrance">
+        <div class="product-container">
+            <div class="product-image reveal">
+                <!-- THIS IS THE BOTTLE PHOTO -->
+                <img id="bottle" src="photo-bottle.jpg" alt="Bastallak by Hastyar - 100ml EDP Bottle">
+            </div>
+            <div class="product-details reveal">
+                <h2 class="product-name">Bastallak</h2>
+                <p class="product-subtitle">by Hastyar &mdash; For Men</p>
+                <p class="product-description">
+                    A sharp breath of icy air meets warm sensual depth.<br><br>
+                    Bastallak opens with a fresh and energetic burst — bright, spicy, and slightly green — before evolving into a smooth aromatic heart. The dry-down reveals a deep, woody base with a soft, addictive warmth.<br><br>
+                    It is a fragrance of contrast:<br>
+                    <em>cool yet powerful, fresh yet intense.</em>
+                </p>
+                <div class="product-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Size</span>
+                        <span class="meta-value">100ml Eau de Parfum</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Price</span>
+                        <span class="price">$35</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Origin</span>
+                        <span class="meta-value">Kalar As Sulaymaniyah</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pyramid Section - NOTE PYRAMID IMAGE GOES HERE -->
+    <section class="pyramid-section" id="notes">
+        <div class="pyramid-container reveal">
+            <p class="section-label" style="margin-bottom: 40px;">Olfactory Pyramid</p>
+            <!-- THIS IS THE NOTE PYRAMID IMAGE -->
+            <img src="photo-pyramid.jpg" alt="Bastallak Note Pyramid - Top, Middle, Base Notes" class="pyramid-image">
+            <p class="pyramid-caption">Top &middot; Middle &middot; Base Notes</p>
+        </div>
+    </section>
+
+    <!-- Notes Detail -->
+    <section class="notes-detail">
+        <div class="notes-container">
+            <div class="note-column reveal">
+                <div class="note-icon">&#10052;</div>
+                <h3 class="note-title">Top Notes</h3>
+                <ul class="note-list">
+                    <li>Cypress</li>
+                    <li>Cardamom</li>
+                    <li>Ice</li>
+                </ul>
+            </div>
+            <div class="note-column reveal">
+                <div class="note-icon">&#10048;</div>
+                <h3 class="note-title">Middle Notes</h3>
+                <ul class="note-list">
+                    <li>Musk</li>
+                    <li>Bourbon Geranium</li>
+                    <li>Red Algae</li>
+                    <li>Lavender</li>
+                    <li>Snow</li>
+                </ul>
+            </div>
+            <div class="note-column reveal">
+                <div class="note-icon">&#127795;</div>
+                <h3 class="note-title">Base Notes</h3>
+                <ul class="note-list">
+                    <li>Vetiver</li>
+                    <li>Patchouli</li>
+                    <li>Cedar</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Purchase Section -->
+    <section class="purchase-section" id="purchase">
+        <div class="purchase-container reveal">
+            <p class="section-label">Acquire</p>
+            <h2 class="purchase-title">Purchase Bastallak</h2>
+            <div class="contact-methods">
+                <a href="https://instagram.com/hastyar.perfume" target="_blank" class="contact-item">
+                    <span class="contact-icon">&#9733;</span>
+                    <div class="contact-info">
+                        <div class="contact-label">Instagram DM</div>
+                        <div class="contact-value">@hastyar.perfume</div>
+                    </div>
+                </a>
+                <a href="https://wa.me/9647705516989" target="_blank" class="contact-item">
+                    <span class="contact-icon">&#9742;</span>
+                    <div class="contact-info">
+                        <div class="contact-label">WhatsApp</div>
+                        <div class="contact-value">0770 551 6989</div>
+                    </div>
+                </a>
+            </div>
+            <div class="origin-badge">
+                Handcrafted in <strong>Kalar As Sulaymaniyah</strong> &mdash; Kurdistan Region, Iraq
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">Hastyar</div>
+        <p class="footer-text">FRAGRANCES OF KURDISTAN &mdash; EST. 2024</p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+    </script>
+</body>
+</html>
